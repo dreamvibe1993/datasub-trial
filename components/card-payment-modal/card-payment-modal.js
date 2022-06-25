@@ -9,6 +9,7 @@ import { InputWithFloatingLabel } from "../ui/inputs/input-floating-label";
 import { formatToCreditCardNumber } from "../../utils/formatters/credit-card-number-autoformat";
 import { excludeAllLetters } from "../../utils/formatters/exclude-all-letters";
 import { showNotification } from "@mantine/notifications";
+import debounce from "../../utils/debounce/debounce";
 
 const useStyles = createStyles((theme) => ({
   modal: {
@@ -57,22 +58,24 @@ export const CardPaymentModal = () => {
   };
 
   const pay = (values) => {
-    axios
-      .post("./api/payments/card", values)
-      .then((res) => {
-        showNotification({
-          title: "Hey, you've got a response!",
-          message: JSON.stringify(res.data, false, 1),
+    debounce(() => {
+      axios
+        .post("./api/payments/card", values)
+        .then((res) => {
+          showNotification({
+            title: "Hey, you've got a response!",
+            message: JSON.stringify(res.data, false, 1),
+          });
+        })
+        .catch((e) => {
+          showNotification({
+            title: "Error processing your request!",
+            message: e.message,
+            color: "red",
+          });
+          console.error(e);
         });
-      })
-      .catch((e) => {
-        showNotification({
-          title: "Error processing your request!",
-          message: e.message,
-          color: "red",
-        });
-        console.error(e);
-      });
+    });
   };
 
   return (

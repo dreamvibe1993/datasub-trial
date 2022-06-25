@@ -1,7 +1,7 @@
 import React from "react";
 import { createStyles, TextInput } from "@mantine/core";
 import { formatExpirationDate } from "../../../utils/formatters/expiration-date-autoformat";
-import { excludeAllLetters } from "../../../utils/formatters/exclude-all-letters";
+import { IoIosClose } from "react-icons/io";
 
 const useStyles = createStyles((theme, { floating }) => ({
   root: {
@@ -35,7 +35,7 @@ const useStyles = createStyles((theme, { floating }) => ({
       transition: "color 150ms ease",
       color: !floating ? "transparent" : undefined,
     },
-    boxShadow: theme.shadows.xs
+    boxShadow: theme.shadows.xs,
   },
 }));
 
@@ -71,6 +71,13 @@ export const InputWithFloatingLabel = ({
         onBlur={() => setFocused(inputsConfig.value.length > 0)}
         type="tel"
         {...inputsConfig}
+        rightSection={
+          <IoIosClose
+            onClick={() => {
+              inputsConfig.onChange({ target: { value: "" } });
+            }}
+          />
+        }
       />
     );
   }
@@ -86,12 +93,18 @@ export const InputWithFloatingLabel = ({
         onChange={(event) =>
           formInputProps.onChange(formatExpirationDate(event.target.value))
         }
+        rightSection={
+          <IoIosClose
+            onClick={() => {
+              formInputProps.onChange("");
+            }}
+          />
+        }
       />
     );
   }
 
   if (type === "number") {
-    inputsConfig.value = excludeAllLetters(inputsConfig.value);
     return (
       <TextInput
         {...inputsConfig}
@@ -100,6 +113,13 @@ export const InputWithFloatingLabel = ({
         maxLength={3}
         hidecontrols="true"
         type="tel"
+        rightSection={
+          <IoIosClose
+            onClick={() => {
+              inputsConfig.onChange("");
+            }}
+          />
+        }
       />
     );
   }
