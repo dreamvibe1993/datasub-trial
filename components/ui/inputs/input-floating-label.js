@@ -1,8 +1,7 @@
 import React from "react";
 import { createStyles, TextInput } from "@mantine/core";
-import { formatExpirationDate } from "../../utils/formatters/expiration-date-autoformat";
-import { excludeAllLetters } from "../../utils/formatters/exclude-all-letters";
-import { formatToCreditCardNumber } from "../../utils/formatters/credit-card-number-autoformat";
+import { formatExpirationDate } from "../../../utils/formatters/expiration-date-autoformat";
+import { excludeAllLetters } from "../../../utils/formatters/exclude-all-letters";
 
 const useStyles = createStyles((theme, { floating }) => ({
   root: {
