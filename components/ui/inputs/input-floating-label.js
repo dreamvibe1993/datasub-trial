@@ -7,7 +7,6 @@ const useStyles = createStyles((theme, { floating }) => ({
   root: {
     position: "relative",
   },
-
   label: {
     position: "absolute",
     zIndex: 2,
@@ -26,7 +25,6 @@ const useStyles = createStyles((theme, { floating }) => ({
     fontSize: floating ? theme.fontSizes.xs : theme.fontSizes.sm,
     fontWeight: floating ? 500 : 400,
   },
-
   required: {
     transition: "opacity 150ms ease",
     opacity: floating ? 1 : 0,
@@ -37,6 +35,7 @@ const useStyles = createStyles((theme, { floating }) => ({
       transition: "color 150ms ease",
       color: !floating ? "transparent" : undefined,
     },
+    boxShadow: theme.shadows.xs
   },
 }));
 
