@@ -1,6 +1,12 @@
 import React from "react";
 import axios from "axios";
-import { createStyles, Group, Stack, Title } from "@mantine/core";
+import {
+  createStyles,
+  Group,
+  LoadingOverlay,
+  Stack,
+  Title,
+} from "@mantine/core";
 import { useForm, yupResolver } from "@mantine/form";
 
 import { CreditCardValidationSchema } from "../../models/yup/schemas/credit-card-validation";
@@ -18,11 +24,13 @@ const useStyles = createStyles((theme) => ({
     backgroundColor: "#FFF",
     borderRadius: theme.radius.sm,
     boxShadow: theme.shadows.xl,
+    position: "relative",
   },
 }));
 
 export const CardPaymentModal = () => {
   const { classes } = useStyles();
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const form = useForm({
     schema: yupResolver(CreditCardValidationSchema),
@@ -58,6 +66,7 @@ export const CardPaymentModal = () => {
   };
 
   const pay = (values) => {
+    setIsLoading(true);
     debounce(() => {
       axios
         .post("./api/payments/card", values)
@@ -74,6 +83,9 @@ export const CardPaymentModal = () => {
             color: "red",
           });
           console.error(e);
+        })
+        .finally(() => {
+          setIsLoading(false);
         });
     });
   };
@@ -81,6 +93,7 @@ export const CardPaymentModal = () => {
   return (
     <form onSubmit={form.onSubmit((values) => pay(values))}>
       <Stack className={classes.modal}>
+        <LoadingOverlay visible={isLoading} style={{ zIndex: 9999 }} />
         <Title order={1}>Enter your credentials. 💰</Title>
         <InputWithFloatingLabel
           type="text"

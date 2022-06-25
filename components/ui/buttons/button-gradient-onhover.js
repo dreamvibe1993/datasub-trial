@@ -27,7 +27,7 @@ const useStyles = createStyles((theme) => ({
   },
   modalSubmitButtonLabel: {
     position: "absolute",
-    zIndex: 9999,
+    zIndex: 10,
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
