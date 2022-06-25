@@ -4,6 +4,8 @@ import { Button, Center, createStyles, Group, Stack } from "@mantine/core";
 import { InputWithFloatingLabel } from "../components/ui/input-floating-label";
 import { useForm, yupResolver } from "@mantine/form";
 import valid from "card-validator";
+import { formatToCreditCardNumber } from "../utils/formatters/credit-card-number-autoformat";
+import { excludeAllLetters } from "../utils/formatters/exclude-all-letters";
 
 const useStyles = createStyles((theme) => ({
   modal: {
@@ -57,6 +59,23 @@ export default function Home() {
       amount: 0,
     },
   });
+  const handleButtonDisabling = () => {
+    const { cardNumber, expDate, cvv, amount } = form.values;
+    return !cardNumber || !expDate || !cvv || !amount;
+  };
+
+  const cardNumberInputProps = {
+    ...form.getInputProps("cardNumber"),
+    value: formatToCreditCardNumber(
+      excludeAllLetters(form.getInputProps("cardNumber").value)
+    ),
+  };
+
+  const amountInputProps = {
+    ...form.getInputProps("amount"),
+    value: excludeAllLetters(form.getInputProps("amount").value),
+  };
+
   return (
     <Center className={classes.mainContainer}>
       <form onSubmit={form.onSubmit((vals) => console.log(vals))}>
@@ -65,11 +84,11 @@ export default function Home() {
             type="text"
             label="CARD NUMBER"
             placeholder="0000 0000 0000 0000"
-            formInputProps={form.getInputProps("cardNumber")}
+            formInputProps={cardNumberInputProps}
           />
           <Group position="apart">
             <InputWithFloatingLabel
-              type="date"
+              type="expiration-date"
               w={"60%"}
               label="EXPIRATION DATE"
               placeholder="MM/YYYY"
@@ -84,13 +103,15 @@ export default function Home() {
             />
           </Group>
           <InputWithFloatingLabel
-            type="number"
+            type="text"
             label="Amount"
             placeholder="Amount"
-            formInputProps={form.getInputProps("amount")}
+            formInputProps={amountInputProps}
           />
           <Group position="right">
-            <Button type="submit">PAY</Button>
+            <Button type="submit" disabled={handleButtonDisabling()}>
+              PAY
+            </Button>
           </Group>
         </Stack>
       </form>

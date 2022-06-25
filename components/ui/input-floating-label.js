@@ -51,15 +51,9 @@ export const InputWithFloatingLabel = ({
   formInputProps,
 }) => {
   const [focused, setFocused] = React.useState(false);
-  const [value, setValue] = React.useState("");
   const { classes } = useStyles({
-    floating:
-      (typeof value === "string" && value.trim().length !== 0) || focused,
+    floating: focused,
   });
-
-  React.useEffect(() => {
-    console.log(value);
-  }, [value]);
 
   const inputsConfig = {
     label: label,
@@ -73,9 +67,6 @@ export const InputWithFloatingLabel = ({
   };
 
   if (type === "text") {
-    inputsConfig.value = formatToCreditCardNumber(
-      excludeAllLetters(inputsConfig.value)
-    );
     return (
       <TextInput
         onFocus={() => setFocused(true)}
@@ -86,7 +77,7 @@ export const InputWithFloatingLabel = ({
     );
   }
 
-  if (type === "date") {
+  if (type === "expiration-date") {
     inputsConfig.onChange = undefined;
     return (
       <TextInput
