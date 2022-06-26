@@ -47,6 +47,7 @@ export const InputWithFloatingLabel = ({
   w = "100%",
   type = "text",
   formInputProps,
+  maxLength,
 }) => {
   const [focused, setFocused] = React.useState(false);
   const { classes } = useStyles({
@@ -67,9 +68,10 @@ export const InputWithFloatingLabel = ({
   if (type === "text") {
     return (
       <TextInput
+        {...inputsConfig}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(inputsConfig.value.length > 0)}
-        {...inputsConfig}
+        maxLength={maxLength}
         rightSection={
           <IoIosClose
             onClick={() => {
@@ -86,7 +88,7 @@ export const InputWithFloatingLabel = ({
     return (
       <TextInput
         {...inputsConfig}
-        maxLength={7}
+        maxLength={maxLength}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(inputsConfig.value.length > 0)}
         onChange={(event) =>
@@ -110,9 +112,9 @@ export const InputWithFloatingLabel = ({
         {...inputsConfig}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(inputsConfig.value.length > 0)}
-        maxLength={3}
         hidecontrols="true"
         type="tel"
+        maxLength={maxLength}
         rightSection={
           <IoIosClose
             onClick={() => {

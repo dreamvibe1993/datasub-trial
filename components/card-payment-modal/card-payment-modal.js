@@ -111,6 +111,7 @@ export const CardPaymentModal = () => {
             label="EXPIRATION DATE"
             placeholder="MM/YYYY"
             formInputProps={form.getInputProps("expDate")}
+            maxLength={7}
           />
           <InputWithFloatingLabel
             type="number"
@@ -118,6 +119,7 @@ export const CardPaymentModal = () => {
             label="CVV"
             placeholder="000"
             formInputProps={form.getInputProps("cvv")}
+            maxLength={3}
           />
         </Group>
         <InputWithFloatingLabel
@@ -125,6 +127,7 @@ export const CardPaymentModal = () => {
           label="Amount"
           placeholder="Amount"
           formInputProps={amountInputProps}
+          maxLength={12}
         />
         <Group position="right">
           <ButtonGradientOnHover isDisabled={handleButtonDisabling()}>
