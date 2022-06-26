@@ -77,6 +77,7 @@ export const InputWithFloatingLabel = ({
             onClick={() => {
               inputsConfig.onChange({ target: { value: "" } });
             }}
+            style={{ cursor: "pointer" }}
           />
         }
       />
@@ -100,6 +101,7 @@ export const InputWithFloatingLabel = ({
             onClick={() => {
               formInputProps.onChange("");
             }}
+            style={{ cursor: "pointer" }}
           />
         }
       />
@@ -120,6 +122,7 @@ export const InputWithFloatingLabel = ({
             onClick={() => {
               inputsConfig.onChange("");
             }}
+            style={{ cursor: "pointer" }}
           />
         }
       />
