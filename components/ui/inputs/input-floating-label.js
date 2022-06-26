@@ -69,7 +69,6 @@ export const InputWithFloatingLabel = ({
       <TextInput
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(inputsConfig.value.length > 0)}
-        type="tel"
         {...inputsConfig}
         rightSection={
           <IoIosClose
@@ -93,6 +92,7 @@ export const InputWithFloatingLabel = ({
         onChange={(event) =>
           formInputProps.onChange(formatExpirationDate(event.target.value))
         }
+        type="tel"
         rightSection={
           <IoIosClose
             onClick={() => {

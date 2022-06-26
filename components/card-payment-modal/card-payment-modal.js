@@ -44,7 +44,8 @@ export const CardPaymentModal = () => {
 
   const handleButtonDisabling = () => {
     const { cardNumber, expDate, cvv, amount } = form.values;
-    return !cardNumber || !expDate || !cvv || !amount;
+    const errors = Object.keys(form.errors);
+    return !cardNumber || !expDate || !cvv || !amount || errors.length > 0;
   };
 
   const cardNumberInputProps = {
@@ -55,6 +56,7 @@ export const CardPaymentModal = () => {
       );
       form.getInputProps("cardNumber").onChange(formatted);
     },
+    type: "tel"
   };
 
   const amountInputProps = {
