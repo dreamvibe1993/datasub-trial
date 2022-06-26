@@ -56,7 +56,7 @@ export const CardPaymentModal = () => {
       );
       form.getInputProps("cardNumber").onChange(formatted);
     },
-    type: "tel"
+    type: "tel",
   };
 
   const amountInputProps = {
@@ -65,6 +65,7 @@ export const CardPaymentModal = () => {
       const formatted = excludeAllLetters(e.target.value);
       form.getInputProps("amount").onChange(formatted);
     },
+    type: "tel",
   };
 
   const pay = (values) => {
